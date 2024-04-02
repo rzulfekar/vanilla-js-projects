@@ -18,8 +18,8 @@
 		}
 	</style>
 
-  <link rel="stylesheet" crossorigin href="../assets/pico.css">
-  <link rel="stylesheet" crossorigin href="../assets/darklight.css">
+	<link rel="stylesheet" crossorigin href="../assets/pico.css">
+	<link rel="stylesheet" crossorigin href="../assets/darklight.css">
 </head>
 
 <body class="container grid">
@@ -48,6 +48,7 @@
 
 	</footer>
 
+
 	<script id="theme.js">
 		const doc = document.documentElement;
 
@@ -71,9 +72,13 @@
 			closeButton = document.createElement('button');
 
 			constructor(type, title, content) {
-				console.error('Form constructor not implemented')
+				this.heading.innerText = title;
+				this.element.type = type;
+				this.closeButton.innerText = 'Close';
+				this.element.appendChild(this.heading);
+				this.element.appendChild(content);
+				this.element.appendChild(this.closeButton);
 			}
-
 		}
 
 		class Modal {
@@ -82,8 +87,16 @@
 
 			constructor(name, parentElement, contentElement) {
 				// Set up the instance object
+				this.openButton.innerText = `Open ${name}`;
+				this.name = name;
+				this.parent = parentElement;
+				this.content = contentElement;
 				this.#setupForm();
-				console.error('Modal constructor not implemented')
+				this.openButton.addEventListener('click', () => {
+					this.dialog.showModal();
+				});
+
+
 			}
 
 			#setupForm() {
@@ -91,15 +104,20 @@
 				const form = new Form('dialog', this.name, this.content);
 				article.appendChild(form.element);
 				this.dialog.appendChild(article);
+
+				form.closeButton.addEventListener('click', () => {
+					// this.dialog.close();
+					this.dialog.close();
+				});
 			}
 
 
 			render() {
 				// Attach the elements to the DOM
-				console.error('render method not implemented')
+				this.parent.appendChild(this.openButton);
+				this.parent.appendChild(this.dialog);
 			}
 		}
-
 
 		const parent = document.querySelector('nav');
 		const content = document.getElementById('dark-mode');
