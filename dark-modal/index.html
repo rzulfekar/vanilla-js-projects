@@ -51,7 +51,7 @@
 
 	<script id="theme.js">
 		const doc = document.documentElement;
-
+		console.log(doc.getAttribute('data-theme'));
 		const toggleDarkMode = (event) => {
 			const currentTheme = doc.getAttribute('data-theme');
 			const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -105,8 +105,8 @@
 				article.appendChild(form.element);
 				this.dialog.appendChild(article);
 
-				form.closeButton.addEventListener('click', () => {
-					// this.dialog.close();
+				form.closeButton.addEventListener('click', (e) => {
+					e.preventDefault();
 					this.dialog.close();
 				});
 			}
